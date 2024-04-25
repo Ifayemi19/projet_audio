@@ -1,0 +1,6 @@
+librosa
+numpy
+scikit-image
+tensorflow
+requests
+streamlit
