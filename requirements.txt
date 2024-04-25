@@ -5,3 +5,4 @@ tensorflow
 requests-toolbelt
 streamlit
 ffmpeg
+soundfile
