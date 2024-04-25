@@ -6,4 +6,4 @@ requests-toolbelt
 streamlit
 ffmpeg
 soundfile
- libsandfile
+pysndfile
