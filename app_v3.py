@@ -5,14 +5,9 @@ from skimage.transform import resize
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from requests_toolbelt.multipart.encoder import MultipartEncoder
-import os
 
 # Load the saved model
-@st.cache(allow_output_mutation=True)
-def load_saved_model():
-    return load_model('audio_classification_model.h5')
-
-model = load_saved_model()
+model = load_model('audio_classification_model.h5')
 
 # Define the target shape for input spectrograms
 target_shape = (128, 128)
@@ -22,13 +17,8 @@ classes = ['females', 'males']
 
 # Function to preprocess and classify an audio file
 def preprocess_and_predict(audio_file):
-    # Save the audio file temporarily
-    temp_file_path = 'temp_audio.wav'
-    with open(temp_file_path, 'wb') as f:
-        f.write(audio_file.read())
-
     # Load and preprocess the audio file
-    audio_data, sample_rate = librosa.load(temp_file_path, sr=None)
+    audio_data, sample_rate = librosa.load(audio_file, sr=None)
     mel_spectrogram = librosa.feature.melspectrogram(y=audio_data, sr=sample_rate)
     mel_spectrogram = resize(np.expand_dims(mel_spectrogram, axis=-1), target_shape)
     mel_spectrogram = tf.reshape(mel_spectrogram, (1,) + target_shape + (1,))
@@ -42,9 +32,6 @@ def preprocess_and_predict(audio_file):
     # Get the predicted class index
     predicted_class_index = np.argmax(class_probabilities)
 
-    # Delete temporary audio file
-    os.remove(temp_file_path)
-
     return classes[predicted_class_index], class_probabilities[predicted_class_index], class_probabilities.tolist()
 
 # Streamlit UI
@@ -57,7 +44,6 @@ if uploaded_file is not None:
     st.audio(uploaded_file, format='audio/wav')
     st.write("Classifying...")
 
-    # Call the prediction function
     predicted_class, accuracy, class_probabilities = preprocess_and_predict(uploaded_file)
 
     # Display results
