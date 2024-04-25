@@ -47,7 +47,7 @@ if uploaded_file is not None:
     with open(temp_file_path, 'wb') as f:
         f.write(uploaded_file.read())
     # Call the prediction function
-    predicted_class, accuracy, class_probabilities = preprocess_and_predict('temp_audio.wav')
+    predicted_class, accuracy, class_probabilities = preprocess_and_predict(uploaded_file)
 
     # Display results
     st.write("Predicted Class:", predicted_class)
