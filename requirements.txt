@@ -4,3 +4,4 @@ scikit-image
 tensorflow
 requests-toolbelt
 streamlit
+ffmpeg
