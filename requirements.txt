@@ -5,5 +5,3 @@ tensorflow
 requests-toolbelt
 streamlit
 ffmpeg
-soundfile
-pysndfile
