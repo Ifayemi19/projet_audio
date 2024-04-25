@@ -2,5 +2,5 @@ librosa
 numpy
 scikit-image
 tensorflow
-requests
+requests-toolbelt
 streamlit
