@@ -43,10 +43,7 @@ uploaded_file = st.sidebar.file_uploader("Upload an audio file", type=["wav", "m
 if uploaded_file is not None:
     st.audio(uploaded_file, format='audio/wav')
     st.write("Classifying...")
-    temp_file_path = 'temp_audio.wav'
-    with open(temp_file_path, 'wb') as f:
-        f.write(uploaded_file.read())
-    # Call the prediction function
+
     predicted_class, accuracy, class_probabilities = preprocess_and_predict(uploaded_file)
 
     # Display results
